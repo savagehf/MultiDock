@@ -214,7 +214,7 @@ void CPropertiesWnd::InitPropList()
 	static const TCHAR szFilter[] = _T("Icon Files(*.ico)|*.ico|All Files(*.*)|*.*||");
 	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("Icon"), TRUE, _T(""), _T("ico"), 0, szFilter, _T("Specifies the window icon")));
 
-	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("Folder"), _T("c:\\")));
+	pGroup3->AddSubItem(new CMFCPropertyGridFileProperty(_T("Folderxxxx"), _T("c:\\")));
 
 	m_wndPropList.AddProperty(pGroup3);
 

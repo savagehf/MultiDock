@@ -8,9 +8,23 @@
 //#include "OutputWnd.h"
 //#include "PropertiesWnd.h"
 #include "BasePane.h"
-#include <map>
+#include <vector>
+#include <string>
 
 using namespace std;
+
+struct stBasePane
+{
+	CString strPaneTitle;
+	EDLGTYPE eType;
+	CBaseDlg* pBaseDlg;
+
+	stBasePane()
+	{
+		pBaseDlg = NULL;
+	}
+};
+typedef vector<stBasePane> VecBasePanes;
 
 class COutlookBar : public CMFCOutlookBar
 {
@@ -51,8 +65,7 @@ protected:  // control bar embedded members
 
 	COutlookBar       m_wndNavigationBar;
 	CMFCShellTreeCtrl m_wndTree;
-	typedef map<EDLGTYPE, CBaseDlg*> MapBaseDlgs;
-	MapBaseDlgs m_mapUserDlgs;
+	VecBasePanes m_vecUserDlgs;
 	
 
 	//CFileView         m_wndFileView;

@@ -95,16 +95,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="res\classview.bmp" />
-    <None Include="res\classview_hc.bmp" />
-    <None Include="res\class_view.ico" />
-    <None Include="res\class_view_hc.ico" />
     <None Include="res\explorer.bmp" />
     <None Include="res\explorer_hc.bmp" />
-    <None Include="res\fileview.bmp" />
-    <None Include="res\fileview_hc.bmp" />
-    <None Include="res\file_view.ico" />
-    <None Include="res\file_view_hc.ico" />
     <None Include="res\menuimages.bmp" />
     <None Include="res\menuimages_hc.bmp" />
     <None Include="res\output_wnd.ico" />
@@ -113,10 +105,6 @@
     <None Include="res\pages_hc.bmp" />
     <None Include="res\pages_small.bmp" />
     <None Include="res\pages_small_hc.bmp" />
-    <None Include="res\properties.bmp" />
-    <None Include="res\properties_hc.bmp" />
-    <None Include="res\properties_wnd.ico" />
-    <None Include="res\properties_wnd_hc.ico" />
     <None Include="res\sort.bmp" />
     <None Include="res\sort_hc.bmp" />
     <None Include="res\TestDockMultiDoc.ico" />

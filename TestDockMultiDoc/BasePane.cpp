@@ -95,7 +95,7 @@ void CBaseDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
 
-	int nMyCalendarsHeight = 70;
+	int nMyCalendarsHeight = 0/*70*/;
 
 	if(NULL != m_pBaseDlg && m_pBaseDlg->GetSafeHwnd() != NULL)
 	{
@@ -123,60 +123,60 @@ void CBaseDlg::OnPaint()
 
 	dc.FillRect(rectClient, &afxGlobalData.brWindow);
 
-	if (rectClient.bottom - m_nMyCalendarsY > 0)
-	{
-		CRect rectMyCalendarsCaption = rectClient;
-		rectMyCalendarsCaption.top = m_nMyCalendarsY;
-		rectMyCalendarsCaption.bottom = rectMyCalendarsCaption.top + afxGlobalData.GetTextHeight(TRUE) * 3 / 2;
+	//if (rectClient.bottom - m_nMyCalendarsY > 0)
+	//{
+	//	CRect rectMyCalendarsCaption = rectClient;
+	//	rectMyCalendarsCaption.top = m_nMyCalendarsY;
+	//	rectMyCalendarsCaption.bottom = rectMyCalendarsCaption.top + afxGlobalData.GetTextHeight(TRUE) * 3 / 2;
 
-		COLORREF clrText = CMFCVisualManager::GetInstance()->OnDrawPaneCaption(&dc, NULL, FALSE, rectMyCalendarsCaption, CRect(0, 0, 0, 0));
+	//	COLORREF clrText = CMFCVisualManager::GetInstance()->OnDrawPaneCaption(&dc, NULL, FALSE, rectMyCalendarsCaption, CRect(0, 0, 0, 0));
 
-		CPen* pOldPen = dc.SelectObject(&afxGlobalData.penBarShadow);
+	//	CPen* pOldPen = dc.SelectObject(&afxGlobalData.penBarShadow);
 
-		dc.MoveTo(rectMyCalendarsCaption.left - 1, rectMyCalendarsCaption.top);
-		dc.LineTo(rectMyCalendarsCaption.right, rectMyCalendarsCaption.top);
+	//	dc.MoveTo(rectMyCalendarsCaption.left - 1, rectMyCalendarsCaption.top);
+	//	dc.LineTo(rectMyCalendarsCaption.right, rectMyCalendarsCaption.top);
 
-		dc.SelectStockObject(BLACK_PEN);
+	//	dc.SelectStockObject(BLACK_PEN);
 
-		dc.MoveTo(rectMyCalendarsCaption.left - 1, rectMyCalendarsCaption.bottom);
-		dc.LineTo(rectMyCalendarsCaption.right, rectMyCalendarsCaption.bottom);
+	//	dc.MoveTo(rectMyCalendarsCaption.left - 1, rectMyCalendarsCaption.bottom);
+	//	dc.LineTo(rectMyCalendarsCaption.right, rectMyCalendarsCaption.bottom);
 
-		dc.SelectObject(pOldPen);
+	//	dc.SelectObject(pOldPen);
 
-		CRect rectText = rectMyCalendarsCaption;
-		rectText.DeflateRect(10, 0);
+	//	CRect rectText = rectMyCalendarsCaption;
+	//	rectText.DeflateRect(10, 0);
 
-		dc.SetBkMode(TRANSPARENT);
-		dc.SetTextColor(clrText);
+	//	dc.SetBkMode(TRANSPARENT);
+	//	dc.SetTextColor(clrText);
 
-		CFont* pOldFont = dc.SelectObject(&afxGlobalData.fontRegular);
+	//	CFont* pOldFont = dc.SelectObject(&afxGlobalData.fontRegular);
 
-		BOOL bNameValid;
-		CString str;
+	//	BOOL bNameValid;
+	//	CString str;
 
-		bNameValid = str.LoadString(IDS_MYCALENDARS);
-		ASSERT(bNameValid);
-		dc.DrawText(str, rectText, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
+	//	//bNameValid = str.LoadString(IDS_MYCALENDARS);
+	//	//ASSERT(bNameValid);
+	//	//dc.DrawText(str, rectText, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 
-		CRect rectCalendar = rectClient;
-		rectCalendar.top = rectMyCalendarsCaption.bottom + 5;
-		rectCalendar.bottom = rectCalendar.top + afxGlobalData.GetTextHeight(TRUE) * 3 / 2 - 5;
+	//	CRect rectCalendar = rectClient;
+	//	rectCalendar.top = rectMyCalendarsCaption.bottom + 5;
+	//	rectCalendar.bottom = rectCalendar.top + afxGlobalData.GetTextHeight(TRUE) * 3 / 2 - 5;
 
-		dc.FillSolidRect(rectCalendar, RGB(255, 255, 213));
+	//	dc.FillSolidRect(rectCalendar, RGB(255, 255, 213));
 
-		rectCalendar.DeflateRect(20, 0);
-		m_Images.Draw(&dc, 3, rectCalendar.TopLeft(), 0);
+	//	rectCalendar.DeflateRect(20, 0);
+	//	m_Images.Draw(&dc, 3, rectCalendar.TopLeft(), 0);
 
-		rectCalendar.left += 20;
+	//	rectCalendar.left += 20;
 
-		bNameValid = str.LoadString(IDS_CALENDAR);
-		ASSERT(bNameValid);
+	//	//bNameValid = str.LoadString(IDS_CALENDAR);
+	//	//ASSERT(bNameValid);
 
-		dc.SetTextColor(afxGlobalData.clrHotLinkNormalText);
-		dc.DrawText(str, rectCalendar, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
+	//	//dc.SetTextColor(afxGlobalData.clrHotLinkNormalText);
+	//	//dc.DrawText(str, rectCalendar, DT_VCENTER | DT_LEFT | DT_SINGLELINE);
 
-		dc.SelectObject(pOldFont);
-	}
+	//	dc.SelectObject(pOldFont);
+	//}
 }
 
 

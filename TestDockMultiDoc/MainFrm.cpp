@@ -122,11 +122,42 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// create docking windows
 	//if (!CreateDockingWindows())
-	m_mapUserDlgs.clear();
-	CBaseDlg* pBase1 = new CBaseDlg;
-	CBaseDlg* pBase2 = new CBaseDlg;
-	m_mapUserDlgs.insert(make_pair(enmDlgType_Test1, pBase1));
-	m_mapUserDlgs.insert(make_pair(enmDlgType_Test2, pBase2));
+	m_vecUserDlgs.clear();
+	int nBasePaneCount = AppXml()->GetAttributeInt(_T("BaseDlgNodeCount"), 0);
+	if(nBasePaneCount > 0)
+	{
+		for(int index=1; index<=nBasePaneCount; index++)
+		{
+			stBasePane oneItem;
+			oneItem.pBaseDlg = new CBaseDlg;
+			
+			CString strNode;
+			strNode.Format(_T("BaseDlgNode\\Index_%d"), index);
+			oneItem.eType = (EDLGTYPE)(AppXml()->GetAttributeInt(strNode, 0));
+
+			strNode.Empty();
+			strNode.Format(_T("BaseDlgNode\\Title_%d"), index);
+			std::wstring strTitle= AppXml()->GetAttributeText(strNode, _T(""));
+			oneItem.strPaneTitle = strTitle.c_str();
+			
+			m_vecUserDlgs.push_back(oneItem);
+		}
+	}
+	else
+	{
+		stBasePane oneItem;
+		oneItem.pBaseDlg = new CBaseDlg;
+		oneItem.strPaneTitle = _T("Test Dlg 1");
+		oneItem.eType = enmDlgType_Test1;
+		m_vecUserDlgs.push_back(oneItem);
+
+		stBasePane oneItem2;
+		oneItem2.pBaseDlg = new CBaseDlg;
+		oneItem2.strPaneTitle = _T("Test Dlg 2");
+		oneItem2.eType = enmDlgType_Test2;
+		m_vecUserDlgs.push_back(oneItem2);
+	}
+	
 
 	if (!CreateOutlookBar(m_wndNavigationBar, ID_VIEW_NAVIGATION,250))
 	{
@@ -247,27 +278,31 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWi
 
 	//lee£º´´½¨tree ¿Ø¼þ, hard code id=1200
 	CRect rectDummy(0, 0, 0, 0);
-	strTemp = _T("Folders");
+	strTemp = _T("test1");
 	int nDlgIndex = 1;
-	for(MapBaseDlgs::iterator it = m_mapUserDlgs.begin();
-		it != m_mapUserDlgs.end(); ++it)
+	for(VecBasePanes::iterator it = m_vecUserDlgs.begin();
+		it != m_vecUserDlgs.end(); ++it)
 	{
-		EDLGTYPE eType = it->first;
-		CBaseDlg* pBaseDlg = it->second;
+		CBaseDlg* pBaseDlg = it->pBaseDlg;
 		if(NULL != pBaseDlg)
 		{
-			pBaseDlg->Create(rectDummy, &bar,  eType, uDlgID++);
-			pOutlookBar->AddControl(pBaseDlg, strTemp, ++uiPageID, TRUE, dwStyle);
 			CString strNode;
 			strNode.Format(_T("BaseDlgNode\\Index_%d"), nDlgIndex);
-			AppXml()->SetAttributeInt(strNode, (UINT)eType);
+			AppXml()->SetAttributeInt(strNode, (UINT)it->eType);
 			AppXml()->FlushData();
+
+			strNode.Empty();
+			strNode.Format(_T("BaseDlgNode\\Title_%d"), nDlgIndex);
+			AppXml()->SetAttribute(strNode, it->strPaneTitle);
+			AppXml()->FlushData();
+			
+			pBaseDlg->Create(rectDummy, &bar,  it->eType, uDlgID++);
+			pOutlookBar->AddControl(pBaseDlg, it->strPaneTitle, ++uiPageID, TRUE, dwStyle);
 		}
 		nDlgIndex++;
 	}
-
-	//Write xml to MultiDock.xml
-	
+	AppXml()->SetAttributeInt(_T("BaseDlgNodeCount"), m_vecUserDlgs.size());
+	AppXml()->FlushData();
 
 
 	bNameValid = strTemp.LoadString(IDS_CALENDAR);
