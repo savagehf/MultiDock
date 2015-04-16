@@ -137,12 +137,14 @@
     <ClInclude Include="OutputWnd.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="RWLock.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestDockMultiDoc.h" />
     <ClInclude Include="TestDockMultiDocDoc.h" />
     <ClInclude Include="TestDockMultiDocView.h" />
     <ClInclude Include="ViewTree.h" />
+    <ClInclude Include="XmlConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasePane.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="OutputWnd.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
+    <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -162,6 +165,7 @@
     <ClCompile Include="TestDockMultiDocDoc.cpp" />
     <ClCompile Include="TestDockMultiDocView.cpp" />
     <ClCompile Include="ViewTree.cpp" />
+    <ClCompile Include="XmlConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TestDockMultiDoc.rc" />

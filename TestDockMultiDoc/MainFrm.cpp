@@ -4,8 +4,8 @@
 
 #include "stdafx.h"
 #include "TestDockMultiDoc.h"
-
 #include "MainFrm.h"
+#include "XmlConfig.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -248,6 +248,7 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWi
 	//lee£º´´½¨tree ¿Ø¼þ, hard code id=1200
 	CRect rectDummy(0, 0, 0, 0);
 	strTemp = _T("Folders");
+	int nDlgIndex = 1;
 	for(MapBaseDlgs::iterator it = m_mapUserDlgs.begin();
 		it != m_mapUserDlgs.end(); ++it)
 	{
@@ -257,8 +258,17 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWi
 		{
 			pBaseDlg->Create(rectDummy, &bar,  eType, uDlgID++);
 			pOutlookBar->AddControl(pBaseDlg, strTemp, ++uiPageID, TRUE, dwStyle);
+			CString strNode;
+			strNode.Format(_T("BaseDlgNode\\Index_%d"), nDlgIndex);
+			AppXml()->SetAttributeInt(strNode, (UINT)eType);
+			AppXml()->FlushData();
 		}
+		nDlgIndex++;
 	}
+
+	//Write xml to MultiDock.xml
+	
+
 
 	bNameValid = strTemp.LoadString(IDS_CALENDAR);
 	ASSERT(bNameValid);

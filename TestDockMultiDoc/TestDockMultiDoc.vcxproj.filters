@@ -13,6 +13,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Source Files\config">
+      <UniqueIdentifier>{0b1d4a04-f628-479a-9336-5b391d286a92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -156,6 +159,12 @@
     <ClInclude Include="DlgTest1.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="XmlConfig.h">
+      <Filter>Source Files\config</Filter>
+    </ClInclude>
+    <ClInclude Include="RWLock.h">
+      <Filter>Source Files\config</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestDockMultiDoc.cpp">
@@ -199,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="DlgTest2.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlConfig.cpp">
+      <Filter>Source Files\config</Filter>
+    </ClCompile>
+    <ClCompile Include="RWLock.cpp">
+      <Filter>Source Files\config</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
