@@ -15,29 +15,34 @@
 #include"DlgTest2.h"
 
 /////////////////////////////////////////////////////////////////////////////
-// CCalendarBar window
+// CBaseDlg window
 
-class CCalendarBar : public CWnd
+enum EDLGTYPE
+{	
+	enmDlgType_Test1 = 1,
+	enmDlgType_Test2 = 2,
+	enmDlgType_Test3 = 3,
+};
+
+class CBaseDlg : public CWnd
 {
-// Construction
 public:
-	CCalendarBar();
+	CBaseDlg();
 
-// Attributes
 protected:
-	//CMonthCalCtrl m_wndCalendar;
-	//CAboutDlg m_dlgTest;
-	CDlgTest1 m_dlgTest1;
+	//CDlgTest1 m_dlgTest1;
+	CDialogEx* m_pBaseDlg;
 	int m_nMyCalendarsY;
 	CImageList m_Images;
+	EDLGTYPE m_eDlgType;
 
 // Overrides
 public:
-	virtual BOOL Create(const RECT& rect, CWnd* pParentWnd, UINT nID = (UINT)-1);
+	virtual BOOL Create(const RECT& rect, CWnd* pParentWnd, EDLGTYPE eType, UINT nID = (UINT)-1);
 
 // Implementation
 public:
-	virtual ~CCalendarBar();
+	virtual ~CBaseDlg();
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

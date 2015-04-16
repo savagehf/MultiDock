@@ -122,8 +122,13 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// create docking windows
 	//if (!CreateDockingWindows())
-	if (!CreateOutlookBar(m_wndNavigationBar, 
-		ID_VIEW_NAVIGATION, m_wndTree, m_wndCalendar, 250))
+	m_mapUserDlgs.clear();
+	CBaseDlg* pBase1 = new CBaseDlg;
+	CBaseDlg* pBase2 = new CBaseDlg;
+	m_mapUserDlgs.insert(make_pair(enmDlgType_Test1, pBase1));
+	m_mapUserDlgs.insert(make_pair(enmDlgType_Test2, pBase2));
+
+	if (!CreateOutlookBar(m_wndNavigationBar, ID_VIEW_NAVIGATION,250))
 	{
 		TRACE0("Failed to create docking windows\n");
 		return -1;
@@ -208,8 +213,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 
 	return TRUE;
 }
-BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeCtrl& tree, 
-	CCalendarBar& calendar, int nInitialWidth)
+BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWidth)
 {
 	bar.SetMode2003();
 
@@ -217,8 +221,9 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeC
 	CString strTemp("Short Cut");
 	//bNameValid = strTemp.LoadStringW(
 	//ASSERT(bNameValid);
-	if (!bar.Create(strTemp, this, CRect(0, 0, nInitialWidth, 32000), 
-		uiID, WS_CHILD | WS_VISIBLE | CBRS_LEFT))
+	if (!bar.Create(strTemp, this, CRect(0, 0, nInitialWidth, 32000), uiID,
+		WS_CHILD 
+		| WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_LEFT | CBRS_FLOAT_MULTI|CBRS_FLOATING/*WS_CHILD | WS_VISIBLE | CBRS_LEFT*/))
 	{
 		return FALSE; // fail to create
 	}
@@ -235,26 +240,29 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeC
 	pOutlookBar->EnableInPlaceEdit(TRUE);
 
 	static UINT uiPageID = 1;
+	static UINT uDlgID = 1200;
 
 	// can float, can autohide, can resize, CAN NOT CLOSE
 	DWORD dwStyle = AFX_CBRS_FLOAT | AFX_CBRS_AUTOHIDE | AFX_CBRS_RESIZE;
 
 	//lee：创建tree 控件, hard code id=1200
 	CRect rectDummy(0, 0, 0, 0);
-	const DWORD dwTreeStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS;
-	tree.Create(dwTreeStyle, rectDummy, &bar, 1200);
 	strTemp = _T("Folders");
-	//bNameValid = strTemp.LoadString(IDS_FOLDERS);
-	//ASSERT(bNameValid);
-	//lee:将tree控件放到outlookbar页面上去。
-	pOutlookBar->AddControl(&tree, strTemp, 2, TRUE, dwStyle);
+	for(MapBaseDlgs::iterator it = m_mapUserDlgs.begin();
+		it != m_mapUserDlgs.end(); ++it)
+	{
+		EDLGTYPE eType = it->first;
+		CBaseDlg* pBaseDlg = it->second;
+		if(NULL != pBaseDlg)
+		{
+			pBaseDlg->Create(rectDummy, &bar,  eType, uDlgID++);
+			pOutlookBar->AddControl(pBaseDlg, strTemp, ++uiPageID, TRUE, dwStyle);
+		}
+	}
 
-	//lee:创建日历控件。hard code=1201.
-	calendar.Create(rectDummy, &bar, 1201);
 	bNameValid = strTemp.LoadString(IDS_CALENDAR);
 	ASSERT(bNameValid);
-	pOutlookBar->AddControl(&/*m_dlgTest*/calendar, strTemp, 3, TRUE, dwStyle);
-
+	
 	bar.SetPaneStyle(bar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
 
 	pOutlookBar->SetImageList(theApp.m_bHiColorIcons ? IDB_PAGES_HC : IDB_PAGES, 24);

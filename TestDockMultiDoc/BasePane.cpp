@@ -22,18 +22,26 @@ static char THIS_FILE[] = __FILE__;
 const int nBorderSize = 10;
 
 /////////////////////////////////////////////////////////////////////////////
-// CCalendarBar
+// CBaseDlg
 
-CCalendarBar::CCalendarBar()
+CBaseDlg::CBaseDlg()
 {
+	m_pBaseDlg = NULL;
 	m_nMyCalendarsY = 0;
+	m_eDlgType = enmDlgType_Test1;
 }
 
-CCalendarBar::~CCalendarBar()
+CBaseDlg::~CBaseDlg()
 {
+	if(NULL != m_pBaseDlg && NULL != m_pBaseDlg->GetSafeHwnd())
+	{
+		m_pBaseDlg->DestroyWindow();
+		delete m_pBaseDlg;
+		m_pBaseDlg = NULL;
+	}
 }
 
-BEGIN_MESSAGE_MAP(CCalendarBar, CWnd)
+BEGIN_MESSAGE_MAP(CBaseDlg, CWnd)
 	ON_WM_CREATE()
 	ON_WM_ERASEBKGND()
 	ON_WM_SIZE()
@@ -42,16 +50,32 @@ BEGIN_MESSAGE_MAP(CCalendarBar, CWnd)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CCalendarBar message handlers
+// CBaseDlg message handlers
 
-int CCalendarBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
+int CBaseDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
 	CRect rectDummy(0, 0, 0, 0);
-	//m_wndCalendar.Create(WS_CHILD | WS_VISIBLE, rectDummy, this, 1);
-	m_dlgTest1.Create(CDlgTest1::IDD, this);
+	switch(m_eDlgType)
+	{
+	case enmDlgType_Test1:
+		{
+			m_pBaseDlg = new CDlgTest1;
+			m_pBaseDlg->Create(CDlgTest1::IDD, this);
+		}
+		break;
+	case enmDlgType_Test2:
+		{
+			m_pBaseDlg = new CDlgTest2;
+			m_pBaseDlg->Create(CDlgTest2::IDD, this);
+		}
+		break;
+	default:
+		break;
+	}
+	//m_dlgTest1.Create(CDlgTest1::IDD, this);
 
 	CBitmap bmp;
 	bmp.LoadBitmap(IDB_PAGES_SMALL_HC);
@@ -62,24 +86,20 @@ int CCalendarBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-BOOL CCalendarBar::OnEraseBkgnd(CDC* /*pDC*/)
+BOOL CBaseDlg::OnEraseBkgnd(CDC* /*pDC*/)
 {
 	return TRUE;
 }
 
-void CCalendarBar::OnSize(UINT nType, int cx, int cy)
+void CBaseDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CWnd::OnSize(nType, cx, cy);
 
 	int nMyCalendarsHeight = 70;
 
-	/*if (m_wndCalendar.GetSafeHwnd() != NULL)
+	if(NULL != m_pBaseDlg && m_pBaseDlg->GetSafeHwnd() != NULL)
 	{
-		m_wndCalendar.SetWindowPos(NULL, nBorderSize, nBorderSize, cx - 2 * nBorderSize, cy - 2 * nBorderSize - nMyCalendarsHeight - 10, SWP_NOZORDER | SWP_NOACTIVATE);
-	}*/
-	if(m_dlgTest1.GetSafeHwnd() != NULL)
-	{
-		m_dlgTest1.SetWindowPos(NULL, nBorderSize, nBorderSize, cx - 2 * nBorderSize, 
+		m_pBaseDlg->SetWindowPos(NULL, nBorderSize, nBorderSize, cx - 2 * nBorderSize, 
 			cy - 2 * nBorderSize - nMyCalendarsHeight - 10, 
 			SWP_NOZORDER | SWP_NOACTIVATE);
 	}
@@ -87,14 +107,16 @@ void CCalendarBar::OnSize(UINT nType, int cx, int cy)
 	m_nMyCalendarsY = cy - nMyCalendarsHeight;
 }
 
-BOOL CCalendarBar::Create(const RECT& rect, CWnd* pParentWnd, UINT nID)
+BOOL CBaseDlg::Create(const RECT& rect, CWnd* pParentWnd, EDLGTYPE eType, UINT nID)
 {
+	m_eDlgType = eType;
+
 	return CWnd::Create(NULL, _T(""), WS_CHILD | WS_VISIBLE, rect, pParentWnd, nID);
 }
 
-void CCalendarBar::OnPaint()
+void CBaseDlg::OnPaint()
 {
-	CPaintDC dc(this); // device context for painting
+	CPaintDC dc(this);
 
 	CRect rectClient;
 	GetClientRect(rectClient);

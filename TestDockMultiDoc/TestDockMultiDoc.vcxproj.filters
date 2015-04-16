@@ -150,11 +150,11 @@
     <ClInclude Include="BasePane.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="DlgTest1.h">
-      <Filter>Unused</Filter>
-    </ClInclude>
     <ClInclude Include="DlgTest2.h">
-      <Filter>Unused</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTest1.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,9 @@
 //#include "OutputWnd.h"
 //#include "PropertiesWnd.h"
 #include "BasePane.h"
+#include <map>
 
+using namespace std;
 
 class COutlookBar : public CMFCOutlookBar
 {
@@ -49,7 +51,9 @@ protected:  // control bar embedded members
 
 	COutlookBar       m_wndNavigationBar;
 	CMFCShellTreeCtrl m_wndTree;
-	CCalendarBar      m_wndCalendar;
+	typedef map<EDLGTYPE, CBaseDlg*> MapBaseDlgs;
+	MapBaseDlgs m_mapUserDlgs;
+	
 
 	//CFileView         m_wndFileView;
 	//CClassView        m_wndClassView;
@@ -67,8 +71,7 @@ protected:
 	afx_msg void OnSettingChange(UINT uFlags, LPCTSTR lpszSection);
 	DECLARE_MESSAGE_MAP()
 
-	BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeCtrl& tree, 
-	CCalendarBar& calendar, int nInitialWidth);
+	BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, int nInitialWidth);
 
 	BOOL CreateDockingWindows();
 	void SetDockingWindowIcons(BOOL bHiColorIcons);
