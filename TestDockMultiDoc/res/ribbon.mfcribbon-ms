@@ -94,7 +94,7 @@
       <CATEGORY>
         <ELEMENT_NAME>Category</ELEMENT_NAME>
         <NAME>面板</NAME>
-        <KEYS>V</KEYS>
+        <KEYS>H</KEYS>
         <IMAGE_SMALL>
           <ID>
             <NAME>IDB_WRITESMALL</NAME>
@@ -109,10 +109,10 @@
         </IMAGE_LARGE>
         <PANELS>
           <PANEL>
-            <ELEMENT_NAME>Pane2</ELEMENT_NAME>
-            <NAME>界面面板</NAME>
-            <KEYS>C</KEYS>
-            <INDEX>2</INDEX>
+            <ELEMENT_NAME>Panel</ELEMENT_NAME>
+            <NAME>测试面板</NAME>
+            <KEYS>W</KEYS>
+            <INDEX>4</INDEX>
             <ELEMENTS>
               <ELEMENT>
                 <ELEMENT_NAME>Button</ELEMENT_NAME>
@@ -120,11 +120,11 @@
                   <NAME>ID_SET_PANE2_CMD1</NAME>
                   <VALUE>240</VALUE>
                 </ID>
-                <TEXT>选择面板</TEXT>
-                <KEYS>C</KEYS>
+                <TEXT>测试面板一</TEXT>
+                <KEYS>W</KEYS>
                 <ALWAYS_LARGE>TRUE</ALWAYS_LARGE>
                 <INDEX_SMALL>8</INDEX_SMALL>
-                <INDEX_LARGE>3</INDEX_LARGE>
+                <INDEX_LARGE>0</INDEX_LARGE>
               </ELEMENT>
               <ELEMENT>
                 <ELEMENT_NAME>Button</ELEMENT_NAME>
@@ -133,10 +133,10 @@
                   <VALUE>241</VALUE>
                 </ID>
                 <TEXT>测试面板二</TEXT>
-                <KEYS>C</KEYS>
+                <KEYS>W</KEYS>
                 <ALWAYS_LARGE>TRUE</ALWAYS_LARGE>
-                <INDEX_SMALL>7</INDEX_SMALL>
-                <INDEX_LARGE>2</INDEX_LARGE>
+                <INDEX_SMALL>8</INDEX_SMALL>
+                <INDEX_LARGE>1</INDEX_LARGE>
               </ELEMENT>
               <ELEMENT>
                 <ELEMENT_NAME>Button</ELEMENT_NAME>
@@ -145,10 +145,10 @@
                   <VALUE>242</VALUE>
                 </ID>
                 <TEXT>测试面板三</TEXT>
-                <KEYS>C</KEYS>
+                <KEYS>W</KEYS>
                 <ALWAYS_LARGE>TRUE</ALWAYS_LARGE>
-                <INDEX_SMALL>6</INDEX_SMALL>
-                <INDEX_LARGE>1</INDEX_LARGE>
+                <INDEX_SMALL>8</INDEX_SMALL>
+                <INDEX_LARGE>2</INDEX_LARGE>
               </ELEMENT>
               <ELEMENT>
                 <ELEMENT_NAME>Button</ELEMENT_NAME>
@@ -157,10 +157,10 @@
                   <VALUE>243</VALUE>
                 </ID>
                 <TEXT>测试面板四</TEXT>
-                <KEYS>C</KEYS>
+                <KEYS>W</KEYS>
                 <ALWAYS_LARGE>TRUE</ALWAYS_LARGE>
-                <INDEX_SMALL>5</INDEX_SMALL>
-                <INDEX_LARGE>0</INDEX_LARGE>
+                <INDEX_SMALL>8</INDEX_SMALL>
+                <INDEX_LARGE>3</INDEX_LARGE>
               </ELEMENT>
             </ELEMENTS>
           </PANEL>
@@ -168,7 +168,7 @@
       </CATEGORY>
       <CATEGORY>
         <ELEMENT_NAME>Category</ELEMENT_NAME>
-        <NAME>面板</NAME>
+        <NAME>系统</NAME>
         <KEYS>V</KEYS>
         <IMAGE_SMALL>
           <ID>
