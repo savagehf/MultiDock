@@ -21,12 +21,23 @@ const UINT uiLastUserToolBarId = uiFirstUserToolBarId + iMaxUserToolbars - 1;
 
 BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWndEx)
 	ON_WM_CREATE()
+	ON_COMMAND(ID_SET_PANE1_CMD1, &CMainFrame::OnRibbonPane1Cmd1)
+	ON_COMMAND(ID_SET_PANE1_CMD2, &CMainFrame::OnRibbonPane1Cmd2)
+	ON_COMMAND(ID_SET_PANE1_CMD3, &CMainFrame::OnRibbonPane1Cmd3)
+	ON_COMMAND(ID_SET_PANE1_CMD4, &CMainFrame::OnRibbonPane1Cmd4)
+
+	ON_COMMAND(ID_SET_PANE2_CMD1, &CMainFrame::OnRibbonPane2Cmd1)
+	ON_COMMAND(ID_SET_PANE2_CMD2, &CMainFrame::OnRibbonPane2Cmd2)
+	ON_COMMAND(ID_SET_PANE2_CMD3, &CMainFrame::OnRibbonPane2Cmd3)
+	ON_COMMAND(ID_SET_PANE2_CMD4, &CMainFrame::OnRibbonPane2Cmd4)
+	
 	ON_COMMAND(ID_WINDOW_MANAGER, &CMainFrame::OnWindowManager)
 	ON_COMMAND(ID_VIEW_CUSTOMIZE, &CMainFrame::OnViewCustomize)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_OFF_2007_BLUE, ID_VIEW_APPLOOK_OFF_2007_AQUA, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_OFF_2007_BLUE, ID_VIEW_APPLOOK_OFF_2007_AQUA, &CMainFrame::OnUpdateApplicationLook)
 	ON_WM_SETTINGCHANGE()
+	//ON_COMMAND(ID_TOOLS_OPTIONS, &CMainFrame::OnOptions)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -65,6 +76,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	mdiTabParams.m_bAutoColor = TRUE;    // set to FALSE to disable auto-coloring of MDI tabs
 	mdiTabParams.m_bDocumentMenu = TRUE; // enable the document menu at the right edge of the tab area
 	EnableMDITabbedGroups(TRUE, mdiTabParams);
+
 
 	if (!m_wndMenuBar.Create(this))
 	{
@@ -111,6 +123,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	DockPane(&m_wndMenuBar);
 	DockPane(&m_wndToolBar);
 
+	//create rabin，这行代码必须在在Menu创建完成才可以。
+	m_wndRibbonBar.Create(this);
+	m_wndRibbonBar.LoadFromResource(IDR_RIBBON);
 
 	// enable Visual Studio 2005 style docking window behavior
 	CDockingManager::SetDockingMode(DT_SMART);
@@ -186,8 +201,8 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	DockPane(&m_wndOutput);
 	m_wndProperties.EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndProperties);*/
-	//m_wndNavigationBar.EnableDocking(CBRS_ALIGN_ANY);
-	//DockPane(&m_wndNavigationBar);
+	m_wndNavigationBar.EnableDocking(CBRS_ALIGN_ANY);
+	DockPane(&m_wndNavigationBar);
 
 	//EnableDocking(CBRS_ALIGN_LEFT);
 	//EnableAutoHidePanes(CBRS_ALIGN_RIGHT);
@@ -416,6 +431,47 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 
 // CMainFrame message handlers
+void CMainFrame::OnRibbonPane1Cmd1()
+{
+	//lee：拿到当前bar下面的basetabctrl。
+	CMFCOutlookBarTabCtrl* pOutlookBar = (CMFCOutlookBarTabCtrl*)m_wndNavigationBar.GetUnderlyingWindow();
+
+	if (pOutlookBar == NULL)
+	{
+		ASSERT(FALSE);
+		return /*FALSE*/;
+	}
+
+	pOutlookBar->OnShowOptions();
+}
+void CMainFrame::OnRibbonPane1Cmd2()
+{
+	AfxMessageBox(_T("调出你自己的用户界面1！"));
+}
+void CMainFrame::OnRibbonPane1Cmd3()
+{
+	AfxMessageBox(_T("调出你自己的用户界面2！"));
+}
+void CMainFrame::OnRibbonPane1Cmd4()
+{
+	AfxMessageBox(_T("调出你自己的用户界面3！"));
+}
+void CMainFrame::OnRibbonPane2Cmd1()
+{
+	AfxMessageBox(_T("调出你自己的用户界面4！"));
+}
+void CMainFrame::OnRibbonPane2Cmd2()
+{
+	AfxMessageBox(_T("调出你自己的用户界面5！"));
+}
+void CMainFrame::OnRibbonPane2Cmd3()
+{
+	AfxMessageBox(_T("调出你自己的用户界面6！"));
+}
+void CMainFrame::OnRibbonPane2Cmd4()
+{
+	AfxMessageBox(_T("调出你自己的用户界面7！"));
+}
 
 void CMainFrame::OnWindowManager()
 {
@@ -512,6 +568,7 @@ void CMainFrame::OnApplicationLook(UINT id)
 
 		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
 		CDockingManager::SetDockingMode(DT_SMART);
+		m_wndRibbonBar.SetWindows7Look(FALSE);
 	}
 
 	RedrawWindow(NULL, NULL, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
@@ -558,3 +615,181 @@ void CMainFrame::OnSettingChange(UINT uFlags, LPCTSTR lpszSection)
 	CMDIFrameWndEx::OnSettingChange(uFlags, lpszSection);
 	//m_wndOutput.UpdateFonts();
 }
+
+
+//COutlookOptionsDlg::COutlookOptionsDlg(CMFCOutlookBarTabCtrl& parentBar)
+//	: CDialog(COutlookOptionsDlg::IDD, &parentBar), m_parentBar(parentBar)
+//{
+//}
+//
+//void COutlookOptionsDlg::DoDataExchange(CDataExchange* pDX)
+//{
+//	CDialog::DoDataExchange(pDX);
+//	//{{AFX_DATA_MAP(COutlookOptionsDlg)
+//	DDX_Control(pDX, IDC_AFXBARRES_MOVEUP, m_btnMoveUp);
+//	DDX_Control(pDX, IDC_AFXBARRES_MOVEDOWN, m_wndMoveDown);
+//	DDX_Control(pDX, IDC_AFXBARRES_LIST, m_wndList);
+//	DDX_Control(pDX, IDC_AFXBARRES_RESET, m_wndReset);
+//	//}}AFX_DATA_MAP
+//}
+//
+//BEGIN_MESSAGE_MAP(COutlookOptionsDlg, CDialog)
+//	//{{AFX_MSG_MAP(COutlookOptionsDlg)
+//	ON_LBN_SELCHANGE(IDC_AFXBARRES_LIST, &COutlookOptionsDlg::OnSelchange)
+//	ON_LBN_DBLCLK(IDC_AFXBARRES_LIST, &COutlookOptionsDlg::OnDblclkList)
+//	ON_BN_CLICKED(IDC_AFXBARRES_MOVEDOWN, &COutlookOptionsDlg::OnMoveDown)
+//	ON_BN_CLICKED(IDC_AFXBARRES_MOVEUP, &COutlookOptionsDlg::OnMoveUp)
+//	ON_BN_CLICKED(IDC_AFXBARRES_RESET, &COutlookOptionsDlg::OnReset)
+//	//}}AFX_MSG_MAP
+//END_MESSAGE_MAP()
+//
+///////////////////////////////////////////////////////////////////////////////
+//// COutlookOptionsDlg message handlers
+//
+//void COutlookOptionsDlg::OnSelchange()
+//{
+//	m_btnMoveUp.EnableWindow(m_wndList.GetCurSel() > 0);
+//	m_wndMoveDown.EnableWindow(m_wndList.GetCurSel() < m_wndList.GetCount() - 1);
+//}
+//
+//void COutlookOptionsDlg::OnDblclkList()
+//{
+//	int nSel = m_wndList.GetCurSel();
+//	if (nSel >= 0)
+//	{
+//		m_wndList.SetCheck(nSel, !m_wndList.GetCheck(nSel));
+//	}
+//}
+//
+//void COutlookOptionsDlg::OnMoveDown()
+//{
+//	MoveItem(FALSE);
+//}
+//
+//void COutlookOptionsDlg::OnMoveUp()
+//{
+//	MoveItem(TRUE);
+//}
+//
+//BOOL COutlookOptionsDlg::OnInitDialog()
+//{
+//	CDialog::OnInitDialog();
+//
+//	if (AfxGetMainWnd() != NULL && (AfxGetMainWnd()->GetExStyle() & WS_EX_LAYOUTRTL))
+//	{
+//		ModifyStyleEx(0, WS_EX_LAYOUTRTL);
+//	}
+//
+//	for (int i = 0; i < m_parentBar.m_iTabsNum; i ++)
+//	{
+//		CString str;
+//		m_parentBar.GetTabLabel(i, str);
+//
+//		int nIndex = m_wndList.AddString(str);
+//
+//		m_wndList.SetItemData(nIndex, (DWORD_PTR) i);
+//		m_wndList.SetCheck(nIndex, m_parentBar.IsTabVisible(i));
+//	}
+//
+//	m_wndList.SetCurSel(0);
+//	OnSelchange();
+//
+//	CMFCOutlookBar* pOutlookBar = DYNAMIC_DOWNCAST(CMFCOutlookBar, m_parentBar.GetParent());
+//	if (pOutlookBar == NULL)
+//	{
+//		m_wndReset.EnableWindow(FALSE);
+//		m_wndReset.ShowWindow(SW_HIDE);
+//	}
+//
+//	return TRUE;  // return TRUE unless you set the focus to a control
+//}
+//
+//void COutlookOptionsDlg::OnOK()
+//{
+//	CArray<int, int> arTabsOrder;
+//
+//	for (int nIndex = 0; nIndex < m_wndList.GetCount(); nIndex++)
+//	{
+//		int i = (int) m_wndList.GetItemData(nIndex);
+//
+//		BOOL bVisible = m_wndList.GetCheck(nIndex);
+//
+//		if (bVisible != m_parentBar.IsTabVisible(i))
+//		{
+//			m_parentBar.ShowTab(i, bVisible, FALSE);
+//		}
+//
+//		arTabsOrder.Add(i);
+//	}
+//
+//	m_parentBar.SetTabsOrder(arTabsOrder);
+//
+//	CDialog::OnOK();
+//}
+//
+//void COutlookOptionsDlg::OnReset()
+//{
+//	CMFCOutlookBar* pOutlookBar = DYNAMIC_DOWNCAST(CMFCOutlookBar, m_parentBar.GetParent());
+//	if (pOutlookBar == NULL)
+//	{
+//		ASSERT(FALSE);
+//		return;
+//	}
+//
+//	CArray<int, int> arTabsOrder;
+//	int i = 0;
+//
+//	for (i = 0; i < pOutlookBar->GetDefaultTabsOrder().GetSize(); i++)
+//	{
+//		int iTabID = pOutlookBar->GetDefaultTabsOrder() [i];
+//		int iTab = m_parentBar.GetTabByID(iTabID);
+//
+//		if (iTab < 0)
+//		{
+//			ASSERT(FALSE);
+//			return;
+//		}
+//
+//		arTabsOrder.Add(iTab);
+//	}
+//
+//	m_wndList.ResetContent();
+//
+//	for (i = 0; i < arTabsOrder.GetSize(); i ++)
+//	{
+//		int iTabNum = arTabsOrder [i];
+//
+//		CString str;
+//		m_parentBar.GetTabLabel(iTabNum, str);
+//
+//		int nIndex = m_wndList.AddString(str);
+//
+//		m_wndList.SetItemData(nIndex, (DWORD_PTR) iTabNum);
+//		m_wndList.SetCheck(nIndex, TRUE);
+//	}
+//
+//	m_wndList.SetCurSel(0);
+//	OnSelchange();
+//}
+//
+//void COutlookOptionsDlg::MoveItem(BOOL bMoveUp)
+//{
+//	int nSel = m_wndList.GetCurSel();
+//
+//	CString str;
+//	m_wndList.GetText(nSel, str);
+//	DWORD_PTR dwData = m_wndList.GetItemData(nSel);
+//	BOOL bCheck = m_wndList.GetCheck(nSel);
+//
+//	m_wndList.DeleteString(nSel);
+//
+//	int nNewIndex = bMoveUp ? nSel - 1 : nSel + 1;
+//
+//	int nIndex = m_wndList.InsertString(nNewIndex, str);
+//
+//	m_wndList.SetItemData(nIndex, dwData);
+//	m_wndList.SetCheck(nIndex, bCheck);
+//
+//	m_wndList.SetCurSel(nIndex);
+//	OnSelchange();
+//}

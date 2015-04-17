@@ -100,6 +100,7 @@ BOOL CTestDockMultiDocApp::InitInstance()
 
 
 	InitContextMenuManager();
+	InitShellManager();
 
 	InitKeyboardManager();
 
