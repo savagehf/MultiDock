@@ -13,6 +13,8 @@
 #include"resource.h"
 #include"DlgTest1.h"
 #include"DlgTest2.h"
+#include"DlgTest3.h"
+#include"DlgTest4.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CBaseDlg window
@@ -22,6 +24,7 @@ enum EDLGTYPE
 	enmDlgType_Test1 = 1,
 	enmDlgType_Test2 = 2,
 	enmDlgType_Test3 = 3,
+	enmDlgType_Test4 = 4,
 };
 
 class CBaseDlg : public CWnd

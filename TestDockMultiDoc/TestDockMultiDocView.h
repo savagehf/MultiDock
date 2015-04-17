@@ -4,7 +4,7 @@
 
 #pragma once
 
-
+class CTestDockMultiDocDoc;
 class CTestDockMultiDocView : public CView
 {
 protected: // create from serialization only

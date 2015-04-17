@@ -11,7 +11,7 @@
 
 #include "stdafx.h"
 #include "BasePane.h"
-#include "DlgTest1.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -70,6 +70,18 @@ int CBaseDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		{
 			m_pBaseDlg = new CDlgTest2;
 			m_pBaseDlg->Create(CDlgTest2::IDD, this);
+		}
+		break;
+	case enmDlgType_Test3:
+		{
+			m_pBaseDlg = new CDlgTest3;
+			m_pBaseDlg->Create(CDlgTest3::IDD, this);
+		}
+		break;
+	case enmDlgType_Test4:
+		{
+			m_pBaseDlg = new CDlgTest4;
+			m_pBaseDlg->Create(CDlgTest4::IDD, this);
 		}
 		break;
 	default:

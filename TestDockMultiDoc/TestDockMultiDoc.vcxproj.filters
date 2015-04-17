@@ -73,6 +73,18 @@
     <None Include="res\pages_small_hc.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\fileview.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\fileview_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\classview.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\classview_hc.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChildFrm.h">
@@ -129,6 +141,12 @@
     <ClInclude Include="RWLock.h">
       <Filter>Source Files\config</Filter>
     </ClInclude>
+    <ClInclude Include="DlgTest4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTest3.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestDockMultiDoc.cpp">
@@ -178,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="RWLock.cpp">
       <Filter>Source Files\config</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTest3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTest4.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

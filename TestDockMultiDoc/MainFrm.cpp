@@ -147,15 +147,27 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
 		stBasePane oneItem;
 		oneItem.pBaseDlg = new CBaseDlg;
-		oneItem.strPaneTitle = _T("Test Dlg 1");
+		oneItem.strPaneTitle = _T("测试面板一");
 		oneItem.eType = enmDlgType_Test1;
 		m_vecUserDlgs.push_back(oneItem);
 
 		stBasePane oneItem2;
 		oneItem2.pBaseDlg = new CBaseDlg;
-		oneItem2.strPaneTitle = _T("Test Dlg 2");
+		oneItem2.strPaneTitle = _T("测试面板二");
 		oneItem2.eType = enmDlgType_Test2;
 		m_vecUserDlgs.push_back(oneItem2);
+	
+		stBasePane oneItem3;
+		oneItem3.pBaseDlg = new CBaseDlg;
+		oneItem3.strPaneTitle = _T("测试面板三");
+		oneItem3.eType = enmDlgType_Test3;
+		m_vecUserDlgs.push_back(oneItem3);
+
+		stBasePane oneItem4;
+		oneItem4.pBaseDlg = new CBaseDlg;
+		oneItem4.strPaneTitle = _T("测试面板四");
+		oneItem4.eType = enmDlgType_Test4;
+		m_vecUserDlgs.push_back(oneItem4);
 	}
 	
 
